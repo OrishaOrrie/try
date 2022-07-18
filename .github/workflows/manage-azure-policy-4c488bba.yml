@@ -1,0 +1,54 @@
+name: manage-azure-policy-4c488bba
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'policies/Azure_Key_Vault_should_disable_public_network_access_405c5871-3e91-4644-8a63-58e19d68ff5b/**'
+#      - 'policies/Audit_usage_of_custom_RBAC_rules_a451c1ef-c6ca-483d-87ed-f49761e3ffb5/**'
+#      - 'policies/Key_vaults_should_have_purge_protection_enabled_0b60c0b2-2dc2-4e1c-b5c9-abbed971de53/**'
+#      - 'policies/_Preview_Azure_Key_Vaults_should_use_private_link_a6abeaec-4d90-4a02-805f-6b26c4d3fbe9/**'
+#      - 'policies/Key_vaults_should_have_soft_delete_enabled_1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d/**'
+#      - 'policies/Key_Vault_keys_should_have_an_expiration_date_152b15f7-8e1f-4c1f-ab71-8c010ba5dbc0/**'
+#      - 'policies/A_maximum_of_3_owners_should_be_designated_for_your_subscription_4f11b553-d42e-4e3a-89be-32ca364cad4c/**'
+#      - 'policies/Configure_Storage_account_to_use_a_private_link_connection_9f766f00-8d11-464e-80e1-4091d7874074/**'
+#      - 'policies/_Preview_Storage_account_public_access_should_be_disallowed_4fa4b6c0-31ca-4c0d-b10d-24b96f62a751/**'
+#      - 'policies/Auditing_on_Synapse_workspace_should_be_enabled_e04e5000-cd89-451d-bb21-a14d24ff9c73/**'
+#      - 'policies/Azure_Synapse_workspaces_should_use_private_link_72d11df1-dd8a-41f7-8925-b05b960ebafc/**'
+#      - 'policies/Vulnerability_assessment_should_be_enabled_on_your_Synapse_workspaces_0049a6b3-a662-4f3e-8635-39cf44ace45a/**'
+#      - .github/workflows/manage-azure-policy-4c488bba.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_4c488bba}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/Azure_Key_Vault_should_disable_public_network_access_405c5871-3e91-4644-8a63-58e19d68ff5b/**
+          policies/Audit_usage_of_custom_RBAC_rules_a451c1ef-c6ca-483d-87ed-f49761e3ffb5/**
+          policies/Key_vaults_should_have_purge_protection_enabled_0b60c0b2-2dc2-4e1c-b5c9-abbed971de53/**
+          policies/_Preview_Azure_Key_Vaults_should_use_private_link_a6abeaec-4d90-4a02-805f-6b26c4d3fbe9/**
+          policies/Key_vaults_should_have_soft_delete_enabled_1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d/**
+          policies/Key_Vault_keys_should_have_an_expiration_date_152b15f7-8e1f-4c1f-ab71-8c010ba5dbc0/**
+          policies/A_maximum_of_3_owners_should_be_designated_for_your_subscription_4f11b553-d42e-4e3a-89be-32ca364cad4c/**
+          policies/Configure_Storage_account_to_use_a_private_link_connection_9f766f00-8d11-464e-80e1-4091d7874074/**
+          policies/_Preview_Storage_account_public_access_should_be_disallowed_4fa4b6c0-31ca-4c0d-b10d-24b96f62a751/**
+          policies/Auditing_on_Synapse_workspace_should_be_enabled_e04e5000-cd89-451d-bb21-a14d24ff9c73/**
+          policies/Azure_Synapse_workspaces_should_use_private_link_72d11df1-dd8a-41f7-8925-b05b960ebafc/**
+          policies/Vulnerability_assessment_should_be_enabled_on_your_Synapse_workspaces_0049a6b3-a662-4f3e-8635-39cf44ace45a/**
